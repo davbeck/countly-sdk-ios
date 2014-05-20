@@ -7,19 +7,22 @@
 
 #import <Foundation/Foundation.h>
 
-@class EventQueue;
+@class CountlyEventQueue;
 
-@interface Countly : NSObject {
+@interface Countly : NSObject
+{
 	double unsentSessionLength;
 	NSTimer *timer;
 	double lastTime;
 	BOOL isSuspended;
-    EventQueue *eventQueue;
+    CountlyEventQueue *eventQueue;
 }
 
-+ (Countly *)sharedInstance;
++ (instancetype)sharedInstance;
 
 - (void)start:(NSString *)appKey withHost:(NSString *)appHost;
+
+- (void)startOnCloudWithAppKey:(NSString *)appKey;
 
 - (void)recordEvent:(NSString *)key count:(int)count;
 

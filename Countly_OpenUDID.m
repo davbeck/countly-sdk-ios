@@ -37,9 +37,7 @@
 */
 
 #if __has_feature(objc_arc)
-#error This file uses the classic non-ARC retain/release model; hints below... 
-    // to selectively compile this file as non-ARC, do as follows:
-    // https://img.skitch.com/20120717-g3ag5h9a6ehkgpmpjiuen3qpwp.png
+#error This is a non-ARC class. Please add -fno-objc-arc flag for Countly.m, Countly_OpenUDID.m and CountlyDB.m under Build Phases > Compile Sources
 #endif
 
 #import "Countly_OpenUDID.h"
@@ -135,17 +133,17 @@ static int const kOpenUDIDRedundancySlots = 100;
         CFStringRef cfstring = CFUUIDCreateString(kCFAllocatorDefault, uuid);
         const char *cStr = CFStringGetCStringPtr(cfstring,CFStringGetFastestEncoding(cfstring));
         unsigned char result[16];
-        CC_MD5( cStr, strlen(cStr), result );
+        CC_MD5( cStr, (CC_LONG)strlen(cStr), result );
         CFRelease(cfstring);
         CFRelease(uuid);
 
         _openUDID = [NSString stringWithFormat:
-                @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%08x",
+                @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%08lx",
                 result[0], result[1], result[2], result[3], 
                 result[4], result[5], result[6], result[7],
                 result[8], result[9], result[10], result[11],
                 result[12], result[13], result[14], result[15],
-                     (NSUInteger)(arc4random() % NSUIntegerMax)];  
+                     (unsigned long)(arc4random() % NSUIntegerMax)];
     }
     
     // Call to other developers in the Open Source community:
