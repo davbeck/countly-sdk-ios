@@ -299,6 +299,10 @@ NSString* CountlyURLUnescapedString(NSString* string)
 
 - (void)recordEvent:(NSString *)key count:(int)count
 {
+    if (key == nil) {
+        return;
+    }
+    
     @synchronized (self)
     {
         NSArray* events = [[[[CountlyDB sharedInstance] getEvents] copy] autorelease];
@@ -329,6 +333,10 @@ NSString* CountlyURLUnescapedString(NSString* string)
 
 - (void)recordEvent:(NSString *)key count:(int)count sum:(double)sum
 {
+    if (key == nil) {
+        return;
+    }
+    
     @synchronized (self)
     {
         NSArray* events = [[[[CountlyDB sharedInstance] getEvents] copy] autorelease];
@@ -363,6 +371,10 @@ NSString* CountlyURLUnescapedString(NSString* string)
 
 - (void)recordEvent:(NSString *)key segmentation:(NSDictionary *)segmentation count:(int)count;
 {
+    if (key == nil) {
+        return;
+    }
+    
     @synchronized (self)
     {
         NSArray* events = [[[[CountlyDB sharedInstance] getEvents] copy] autorelease];
@@ -396,6 +408,10 @@ NSString* CountlyURLUnescapedString(NSString* string)
 
 - (void)recordEvent:(NSString *)key segmentation:(NSDictionary *)segmentation count:(int)count sum:(double)sum;
 {
+    if (key == nil) {
+        return;
+    }
+    
     @synchronized (self)
     {
         NSArray* events = [[[[CountlyDB sharedInstance] getEvents] copy] autorelease];
